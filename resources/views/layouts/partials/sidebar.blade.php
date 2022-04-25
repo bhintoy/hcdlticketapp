@@ -54,14 +54,14 @@
                                 <p>Dashboard v2</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="../../index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
+                <a href="{{ route('users.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Gestion de usuarios
+                    </p>
+                </a>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

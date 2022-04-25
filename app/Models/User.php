@@ -34,6 +34,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function scopeFilter($query, $search)
+    {
+        if($search){
+            return $query->where('name', 'like', '%' . $search . '%')->orWhere('rut', 'like', '%' . $search . '%');
+        }
+    }
+
     /**
      * The attributes that should be cast.
      *
