@@ -45,6 +45,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Rut</th>
+                                        <th scope="col">Departamento</th>
                                         <th scope="col">Rol</th>
                                         <th>Editar</th>
                                         <th>Eliminar</th>
@@ -56,6 +57,7 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->rut }}</td>
+                                            <td>{{ $user->name }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>
                                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info" title="Editar">

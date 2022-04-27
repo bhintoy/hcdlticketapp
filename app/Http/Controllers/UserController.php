@@ -51,7 +51,7 @@ class UserController extends Controller
             'role' => $request->get('role'),
             'password' => bcrypt($request->get('password'))
         ]);
-
+        
         return redirect()->route('users.index');
     }
 
