@@ -56,7 +56,7 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->rut }}</td>
-                                            <td>{{ $user->department->name }}</td>
+                                            <td>{{ $user->department->name}}</td>
                                             <td>
                                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info" title="Editar">
                                                     <i class="fa fa-edit"></i>
