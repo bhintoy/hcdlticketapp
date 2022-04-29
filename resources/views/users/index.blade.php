@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+@endsection
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -18,7 +20,7 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <a class="btn btn-primary mb-3" href="{{ route('users.create') }}">Crear Usuario</a>
+            <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#ModalCreate">Crear Usuario</a>
             <div class="row">
                 <div class="col-12">
 
@@ -39,7 +41,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-bordered table-striped table-dark">
+                            <table id="users" class="table table-bordered table-striped table-dark">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
@@ -56,9 +58,10 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->rut }}</td>
-                                            <td>{{ $user->department->name}}</td>
+                                            <td>{{ $user->department->name }}</td>
                                             <td>
-                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info" title="Editar">
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info"
+                                                    title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </td>
@@ -84,8 +87,20 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
+    @include('users.modal.create')
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#users').DataTable();
+        });
+    </script>
+@endsection
+
 @endsection

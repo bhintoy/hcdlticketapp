@@ -17,8 +17,9 @@ class UserController extends Controller
     {
         $search = $request->get('search');
         $users = User::filter($search)->paginate(4);
+        $departments = Department::select('id', 'name')->get();
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users', 'departments'));
     }
 
     /**

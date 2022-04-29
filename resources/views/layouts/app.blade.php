@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>HCDLPortal | Dashboard 2</title>
+
+    @yield('css')
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -46,6 +48,7 @@
 
 
     <!-- REQUIRED SCRIPTS -->
+    @yield('js')
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
