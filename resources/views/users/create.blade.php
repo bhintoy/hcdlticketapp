@@ -40,11 +40,12 @@
                                     <input type="text" class="form-control" name="rut" placeholder="Ingrese rut" id="rut">
                                 </div>
                                 <div class="form-group">
-                                    <label for="role">Rol</label>
-                                    <select name="role" id="role" class="form-control">
+                                    <label for="department_id">Departamento</label>
+                                    <select name="department_id" id="department_id" class="form-control">
                                         <option value="" selected>Seleccione</option>
-                                        <option value="Administrador">Administrador</option>
-                                        <option value="Empleado">Empleado</option>
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">

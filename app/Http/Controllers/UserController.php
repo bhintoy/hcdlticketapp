@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
 
 class UserController extends Controller
 {
@@ -27,7 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $departments = Department::select('id', 'name')->get();
+
+        return view('users.create', compact('departments'));
     }
 
     /**
@@ -40,18 +43,18 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'rut' => 'required|unique:users, rut',
-            'role' => 'required',
+            'rut' => 'required|unique:users,rut',
+            'department_id' => 'required',
             'password' => 'required|min:4'
         ]);
 
         User::create([
             'name' => $request->get('name'),
             'rut' => $request->get('rut'),
-            'role' => $request->get('role'),
+            'department_id' => $request->get('department_id'),
             'password' => bcrypt($request->get('password'))
         ]);
-        
+
         return redirect()->route('users.index');
     }
 
@@ -91,7 +94,6 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'rut' => 'required|unique:users,rut,' . $id,
-            'role' => 'required',
             'password' => 'nullable|min:4'
         ]);
 
@@ -100,7 +102,6 @@ class UserController extends Controller
         $user->update([
             'name' => $request->get('name'),
             'rut' => $request->get('rut'),
-            'role' => $request->get('role'),
         ]);
         if($request->get('password')){
             $user->update([

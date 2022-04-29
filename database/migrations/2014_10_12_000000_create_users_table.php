@@ -17,13 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('rut')->unique();
-            $table->enum('role', ['Administrador', 'Empleado']);
             $table->string('password');
             $table->rememberToken();
 
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments');
-            
+
             $table->timestamps();
         });
     }
