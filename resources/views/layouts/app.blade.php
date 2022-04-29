@@ -15,13 +15,12 @@
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="dark-mode hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
         @include('layouts.partials.header')
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         @include('layouts.partials.sidebar')
         <!-- Content Wrapper. Contains page content -->
@@ -39,7 +38,6 @@
 
     </div>
     <!-- ./wrapper -->
-
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
