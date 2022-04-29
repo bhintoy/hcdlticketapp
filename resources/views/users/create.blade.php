@@ -10,6 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('users.index')}}">Gestion de usuario</a></li>
                         <li class="breadcrumb-item active">Creacion de usuario</li>
                     </ol>
                 </div>
