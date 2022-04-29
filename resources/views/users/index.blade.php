@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-bordered table-striped table-light">
+                            <table class="table table-bordered table-striped table-dark">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
