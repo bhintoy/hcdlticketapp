@@ -59,7 +59,9 @@
                     </div>
                     <div class="row">
                         <div class="col mb-12">
-                            <button type="submit" class="btn btn-primary btn-block">Iniciar sesion</button>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Iniciar sesion
+                            </button>
                         </div>
                     </div>
                 </form>

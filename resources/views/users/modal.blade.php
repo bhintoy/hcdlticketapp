@@ -1,6 +1,6 @@
-<form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
+<form id="formSave" action="{{ route('users.save')}}" method="post">
     @csrf
-    <div class="modal fade text-left" id="ModalCreate" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade text-left" id="modalSave" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

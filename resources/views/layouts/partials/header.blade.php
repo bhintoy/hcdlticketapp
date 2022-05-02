@@ -8,7 +8,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <a href="{{ route('logout') }}" style="color: #fff;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-times-circle"></i> Cerrar sesion
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesion
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

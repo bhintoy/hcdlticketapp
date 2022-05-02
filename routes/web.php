@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('users', App\Http\Controllers\UserController::class);
+
+Route::get('/users', [UserController::class, 'list'])->name('users.list');
+Route::post('/users/save', [UserController::class, 'save'])->name('users.save');
+Route::post('/users/datatable', [UserController::class, 'dataTable'])->name('users.datatable');
