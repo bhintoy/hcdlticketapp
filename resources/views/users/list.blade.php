@@ -88,7 +88,8 @@
                 ],
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-                }
+                },
+                lengthMenu: [5, 15, 30, 50]
             });
 
             // submit formulario
