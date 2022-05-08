@@ -44,10 +44,26 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/rutvalidator.js') }}"></script>
     <script>
+        // Limpiar errores de validacion
+        function cleanFormErrors() {
+            $('.small-validation').text('');
+            $('.small-validation').css('display', 'none');
+        }
+
+        // Limpiar formulario
+        function resetForm() {
+            $('#formSave')[0].reset();
+            $("#user_id").val('');
+        }
+
         var table;
 
         $(function() {
+            // rut formateo
+            $('#rut').rut();
+
             // Funcion renderizar datos data table
             table = $('#users').DataTable({
                 processing: true,
@@ -89,13 +105,15 @@
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
                 },
-                lengthMenu: [5, 15, 30, 50]
+                lengthMenu: [10, 20, 35, 50]
             });
 
             // submit formulario
             $('#formSave').submit(function(e) {
                 // previene que se recarge la pagina
                 e.preventDefault();
+
+                cleanFormErrors();
 
                 let url = $(this).attr('action');
                 let data = $(this).serialize();
@@ -121,8 +139,9 @@
                         // Actualizar dataTable
                         table.draw();
 
-                        // Limpiar formulario
-                        $('#formSave')[0].reset();
+                        cleanFormErrors();
+                        resetForm();
+
                     },
                     error: function(response) {
                         Swal.fire({
@@ -133,12 +152,79 @@
                             icon: 'error',
                             title: 'Se encontraron errores'
                         });
+
+                        var errors = response.responseJSON.errors;
+                        $.each(errors, function(index, value) {
+                            var className = '.error_' + index;
+
+                            $(className).text(value);
+                            $(className).css('display', 'block');
+                        });
                     }
 
                 });
             });
 
+            $('#modalSave').on('hidden.bs.modal', function(event) {
+                cleanFormErrors();
+                resetForm();
+            });
 
+            $('#users').on('click', '.btn-edit', function() {
+                let id = $(this).data('id');
+                let url = "{{ route('users.show', ':id') }}";
+                url = url.replace(':id', id);
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(response) {
+                        $('#user_id').val(response.id);
+                        $('#name').val(response.name);
+                        $('#rut').val(response.rut);
+                        $('#department_id').val(response.department_id);
+
+                        $('#modalSave').modal('show');
+                    }
+                });
+            });
+
+            $('#users').on('click', '.btn-delete', function() {
+                let id = $(this).data('id');
+                let url = "{{ route('users.delete', ':id') }}";
+                url = url.replace(':id', id);
+
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Si, Eliminalo!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: url,
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    icon: 'success',
+                                    title: response.message
+                                });
+                                table.draw();
+                            }
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection

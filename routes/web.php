@@ -25,3 +25,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/users', [UserController::class, 'list'])->name('users.list');
 Route::post('/users/save', [UserController::class, 'save'])->name('users.save');
 Route::post('/users/datatable', [UserController::class, 'dataTable'])->name('users.datatable');
+Route::get('/users/show/{id}', [UserController::class, 'show'])->name('users.show');
+Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');

@@ -19,23 +19,55 @@ class UserController extends Controller
     // Guarda los datos del formulario
     public function save(Request $request)
     {
+        $userExists = $request->get('user_id');
+
+        $validateRut = 'required|cl_rut|unique:users,rut';
+        $validatePassword = 'required|min:4';
+
+        if($userExists) {
+            $validateRut = 'required|cl_rut|unique:users,rut,' . $userExists;
+            $validatePassword = 'nullable|min:4';
+        }
+
         $this->validate($request, [
             'name' => 'required',
-            'rut' => 'required|unique:users,rut',
+            'rut' => $validateRut,
             'department_id' => 'required',
-            'password' => 'required|min:4'
+            'password' => $validatePassword
         ]);
 
-        User::create([
-            'name' => $request->get('name'),
-            'rut' => $request->get('rut'),
-            'department_id' => $request->get('department_id'),
-            'password' => bcrypt($request->get('password'))
-        ]);
+        if($userExists) {
+            // update user
+            $message = 'Usuario actualizado exitosamente';
+            $user = User::find($userExists);
+
+            $user->update([
+                'name' => $request->get('name'),
+                'rut' => $request->get('rut'),
+                'department_id' => $request->get('department_id')
+            ]);
+
+            if($request->has('password')){
+                $user->update([
+                    'password' => bcrypt($request->get('password'))
+                ]);
+            }
+
+        } else {
+            // create user
+            $message = 'Usuario creado exitosamente';
+
+            User::create([
+                'name' => $request->get('name'),
+                'rut' => $request->get('rut'),
+                'department_id' => $request->get('department_id'),
+                'password' => bcrypt($request->get('password'))
+            ]);
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Usuario creado exitosamente'
+            'message' => $message
         ]);
     }
 
@@ -47,7 +79,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id);
     }
 
     /**
@@ -61,7 +93,10 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('users.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario eliminado exitosamente'
+        ]);
     }
 
     public function dataTable(Request $request)
@@ -73,8 +108,8 @@ class UserController extends Controller
         return DataTables::of($users)
             ->addColumn('actions', function ($user){
                 return '
-                    <button type="button" class="btn btn-sm btn-primary" data-id="'.$user->id.'"><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-sm btn-danger" data-id="'.$user->id.'"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-sm btn-primary btn-edit" data-id="'.$user->id.'"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i></button>
                 ';
             })
             ->rawColumns([
