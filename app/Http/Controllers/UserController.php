@@ -47,7 +47,7 @@ class UserController extends Controller
                 'department_id' => $request->get('department_id')
             ]);
 
-            if($request->has('password')){
+            if($request->get('password')){
                 $user->update([
                     'password' => bcrypt($request->get('password'))
                 ]);
