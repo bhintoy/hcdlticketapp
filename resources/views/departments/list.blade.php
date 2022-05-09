@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Listado de usuarios</h1>
+                    <h1 class="m-0 text-dark">Listado de departamentos</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-                        <li class="breadcrumb-item active">Gestion de usuarios</li>
+                        <li class="breadcrumb-item active">Gestion de departamentos</li>
                     </ol>
                 </div>
             </div>
@@ -17,19 +17,17 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear Usuario</a>
+            <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear Departamento</a>
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="users" class="table table-bordered table-striped table-dark">
+                            <table id="departments" class="table table-bordered table-striped table-dark">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Rut</th>
-                                        <th scope="col">Departamento</th>
+                                        <th scope="col">Descripcion</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -40,11 +38,9 @@
             </div>
         </div>
     </div>
-    @include('users.modal')
+    @include('departments.modal')
 @endsection
-
 @section('js')
-    <script src="{{ asset('js/rutvalidator.js') }}"></script>
     <script>
         // Limpiar errores de validacion
         function cleanFormErrors() {
@@ -55,27 +51,18 @@
         // Limpiar formulario
         function resetForm() {
             $('#formSave')[0].reset();
-            $("#user_id").val('');
+            $("#department_id").val('');
         }
 
         var table;
 
         $(function() {
-            // select2
-            $('.select2Custom').select2({
-                placeholder: "Seleccione una opcion",
-                allowClear: true
-            });
-
-            // rut formateo
-            $('#rut').rut();
-
             // Funcion renderizar datos data table
-            table = $('#users').DataTable({
+            table = $('#departments').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('users.datatable') }}',
+                    url: '{{ route('departments.datatable') }}',
                     dataType: 'json',
                     type: 'POST',
                     data: {
@@ -93,14 +80,9 @@
                         orderable: true
                     },
                     {
-                        data: 'rut',
+                        data: 'description',
                         searchable: true,
                         orderable: true
-                    },
-                    {
-                        data: 'department.name',
-                        searchable: true,
-                        orderable: false
                     },
                     {
                         data: 'actions',
@@ -176,28 +158,27 @@
                 resetForm();
             });
 
-            $('#users').on('click', '.btn-edit', function() {
+            $('#departments').on('click', '.btn-edit', function() {
                 let id = $(this).data('id');
-                let url = "{{ route('users.show', ':id') }}";
+                let url = "{{ route('departments.show', ':id') }}";
                 url = url.replace(':id', id);
 
                 $.ajax({
                     type: 'GET',
                     url: url,
                     success: function(response) {
-                        $('#user_id').val(response.id);
+                        $('#department_id').val(response.id);
                         $('#name').val(response.name);
-                        $('#rut').val(response.rut);
-                        $('#department_id').val(response.department_id);
+                        $('#description').val(response.description);
 
                         $('#modalSave').modal('show');
                     }
                 });
             });
 
-            $('#users').on('click', '.btn-delete', function() {
+            $('#departments').on('click', '.btn-delete', function() {
                 let id = $(this).data('id');
-                let url = "{{ route('users.delete', ':id') }}";
+                let url = "{{ route('departments.delete', ':id') }}";
                 url = url.replace(':id', id);
 
                 Swal.fire({

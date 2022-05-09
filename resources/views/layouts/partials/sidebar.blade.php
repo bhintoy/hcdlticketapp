@@ -14,7 +14,8 @@
                 <img src="{{ asset('img/avatar4.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ request()->user()->name}}</a>
+                <b class="d-block">{{ request()->user()->name}}</b>
+                <small class="d-block">{{ request()->user()->department->name}}</small>
             </div>
         </div>
 
@@ -63,7 +64,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('departments.list')}}" class="nav-link">
                                 <i class="fa fa-building nav-icon"></i>
                                 <p>Gestion de departamentos</p>
                             </a>

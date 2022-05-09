@@ -108,8 +108,8 @@ class UserController extends Controller
         return DataTables::of($users)
             ->addColumn('actions', function ($user){
                 return '
-                    <button type="button" class="btn btn-sm btn-primary btn-edit" data-id="'.$user->id.'"><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-sm btn-primary btn-edit" data-id="'.$user->id.'"><i class="fa fa-edit"></i> Editar</button>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i> Eliminar</button>
                 ';
             })
             ->rawColumns([

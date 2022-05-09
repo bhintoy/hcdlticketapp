@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentariesTable extends Migration
+class CreateAnswerablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCommentariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('commentaries', function (Blueprint $table) {
+        Schema::create('answerables', function (Blueprint $table) {
             $table->id();
-            $table->string('commentary');
-            $table->string('file');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')->references('id')->on('tickets');
@@ -32,6 +33,6 @@ class CreateCommentariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commentaries');
+        Schema::dropIfExists('answerables');
     }
 }

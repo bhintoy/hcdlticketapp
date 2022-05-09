@@ -31,7 +31,7 @@
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control @error('rut') is-invalid @enderror"
-                            placeholder="Ingrese su rut" name="rut">
+                            placeholder="Ingrese su rut" name="rut" id="rut">
                         @error('rut')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -75,6 +75,14 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
+    <!-- Rut formatter-->
+    <script src="{{ asset('js/rutvalidator.js') }}"></script>
+
+    <script>
+        $(function(){
+            $('#rut').rut();
+        });
+    </script>
 
 </body>
 

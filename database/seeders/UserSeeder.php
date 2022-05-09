@@ -19,9 +19,9 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Felipe Almonacid',
-            'rut' => '194134770',
+            'rut' => '19.413.477-0',
             'department_id' => $department->id,
-            'password' => bcrypt('123456789'),
+            'password' => bcrypt('1234'),
         ]);
     }
 }

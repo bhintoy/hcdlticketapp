@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     /**
      * The attributes that should be cast.
      *

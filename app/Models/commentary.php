@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Commentary extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'commentary',
+        'file',
+        'ticket_id'
+    ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
 }
