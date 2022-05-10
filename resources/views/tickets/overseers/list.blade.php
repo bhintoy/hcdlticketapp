@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Listado de usuarios</h1>
+                    <h1 class="m-0 text-dark">Tus tickets</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-                        <li class="breadcrumb-item active">Gestion de usuarios</li>
+                        <li class="breadcrumb-item active">Tickets</li>
                     </ol>
                 </div>
             </div>
@@ -17,19 +17,21 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear Usuario</a>
+            <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear ticket</a>
             <div class="row">
                 <div class="col-12">
 
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="users" class="table table-bordered table-striped table-dark">
+                            <table id="tickets" class="table table-bordered table-striped table-dark">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Rut</th>
+                                        <th>Asunto</th>
+                                        <th>Prioridad</th>
+                                        <th>Usuario</th>
                                         <th>Departamento</th>
+                                        <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -40,11 +42,10 @@
             </div>
         </div>
     </div>
-    @include('users.modal')
+    @include('tickets.modal')
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/rutvalidator.js') }}"></script>
     <script>
         // Limpiar errores de validacion
         function cleanFormErrors() {
@@ -62,16 +63,15 @@
 
         $(function() {
             // select2
+            /*
             $('.select2Custom').select2({
                 placeholder: "Seleccione una opcion",
                 allowClear: true
             });
-
-            // rut formateo
-            $('#rut').rut();
+            */
 
             // Funcion renderizar datos data table
-            table = $('#users').DataTable({
+            table = $('#tickets').DataTable({
                 processing: true,
                 serverSide: true,
                 columnDefs: [{
@@ -79,7 +79,7 @@
                     "targets": "_all"
                 }],
                 ajax: {
-                    url: '{{ route('users.datatable') }}',
+                    url: '{{ route('tickets.datatable') }}',
                     dataType: 'json',
                     type: 'POST',
                     data: {
@@ -92,19 +92,29 @@
                         orderable: true
                     },
                     {
-                        data: 'name',
-                        searchable: true,
-                        orderable: true
-                    },
-                    {
-                        data: 'rut',
-                        searchable: true,
-                        orderable: true
-                    },
-                    {
-                        data: 'department.name',
+                        data: 'subject',
                         searchable: true,
                         orderable: false
+                    },
+                    {
+                        data: 'priority',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'user.name',
+                        searchable: true,
+                        orderable: false
+                    },
+                    {
+                        data: 'user.department.name',
+                        searchable: true,
+                        orderable: false,
+                    },
+                    {
+                        data: 'status.name',
+                        searchable: true,
+                        orderable: true,
                     },
                     {
                         data: 'actions',
@@ -180,9 +190,9 @@
                 resetForm();
             });
 
-            $('#users').on('click', '.btn-edit', function() {
+            $('#tickets').on('click', '.btn-edit', function() {
                 let id = $(this).data('id');
-                let url = "{{ route('users.show', ':id') }}";
+                let url = "{{ route('tickets.show', ':id') }}";
                 url = url.replace(':id', id);
 
                 $.ajax({
@@ -199,9 +209,9 @@
                 });
             });
 
-            $('#users').on('click', '.btn-delete', function() {
+            $('#tickets').on('click', '.btn-delete', function() {
                 let id = $(this).data('id');
-                let url = "{{ route('users.delete', ':id') }}";
+                let url = "{{ route('tickets.delete', ':id') }}";
                 url = url.replace(':id', id);
 
                 Swal.fire({
