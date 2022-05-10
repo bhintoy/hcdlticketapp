@@ -5,122 +5,105 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
+use DataTables;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $search = $request->get('search');
-        $users = User::filter($search)->paginate(4);
-
-        return view('users.index', compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // Muestra la vista con el listado de usuarios
+    public function list()
     {
         $departments = Department::select('id', 'name')->get();
-
-        return view('users.create', compact('departments'));
+        return view('users.list', compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    // Guarda los datos del formulario
+    public function save(Request $request)
     {
+        $userExists = $request->get('user_id');
+
+        $validateRut = 'required|cl_rut|unique:users,rut';
+        $validatePassword = 'required|min:4';
+
+        if($userExists) {
+            $validateRut = 'required|cl_rut|unique:users,rut,' . $userExists;
+            $validatePassword = 'nullable|min:4';
+        }
+
         $this->validate($request, [
             'name' => 'required',
-            'rut' => 'required|unique:users,rut',
+            'rut' => $validateRut,
             'department_id' => 'required',
-            'password' => 'required|min:4'
+            'password' => $validatePassword
         ]);
 
-        User::create([
-            'name' => $request->get('name'),
-            'rut' => $request->get('rut'),
-            'department_id' => $request->get('department_id'),
-            'password' => bcrypt($request->get('password'))
-        ]);
+        if($userExists) {
+            // update user
+            $message = 'Usuario actualizado exitosamente';
+            $user = User::find($userExists);
 
-        return redirect()->route('users.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id);
-
-        return view('users.edit', compact('user'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'rut' => 'required|unique:users,rut,' . $id,
-            'password' => 'nullable|min:4'
-        ]);
-
-        $user = User::find($id);
-
-        $user->update([
-            'name' => $request->get('name'),
-            'rut' => $request->get('rut'),
-        ]);
-        if($request->get('password')){
             $user->update([
+                'name' => $request->get('name'),
+                'rut' => $request->get('rut'),
+                'department_id' => $request->get('department_id')
+            ]);
+
+            if($request->get('password')){
+                $user->update([
+                    'password' => bcrypt($request->get('password'))
+                ]);
+            }
+
+        } else {
+            // create user
+            $message = 'Usuario creado exitosamente';
+
+            User::create([
+                'name' => $request->get('name'),
+                'rut' => $request->get('rut'),
+                'department_id' => $request->get('department_id'),
                 'password' => bcrypt($request->get('password'))
             ]);
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => $message
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        return User::find($id);
+    }
+
+
     public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('users.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario eliminado exitosamente'
+        ]);
+    }
+
+    public function dataTable(Request $request)
+    {
+        $users = User::with('department')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return DataTables::of($users)
+            ->addColumn('actions', function ($user){
+                return '
+                    <button type="button" class="btn btn-sm btn-primary btn-edit" data-id="'.$user->id.'"><i class="fa fa-edit"></i> Editar</button>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i> Eliminar</button>
+                ';
+            })
+            ->rawColumns([
+                'actions'
+            ])
+            ->toJson();
     }
 }

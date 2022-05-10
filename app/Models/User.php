@@ -34,16 +34,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function scopeFilter($query, $search)
-    {
-        if($search){
-            return $query->where('name', 'like', '%' . $search . '%')->orWhere('rut', 'like', '%' . $search . '%');
-        }
-    }
-
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 
     /**
