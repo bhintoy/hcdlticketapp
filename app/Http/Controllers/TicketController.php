@@ -51,8 +51,9 @@ class TicketController extends Controller
     public function show($id)
     {
         $ticket = Ticket::find($id);
+        $statuses = Status::select('id', 'name')->get();
 
-        return view('tickets.overseers.viewTicket', compact('ticket'));
+        return view('tickets.overseers.viewTicket', compact('ticket', 'statuses'));
     }
 
     public function destroy($id)

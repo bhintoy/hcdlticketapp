@@ -20,7 +20,7 @@
     @yield('css')
 </head>
 
-<body class="dark-mode hold-transition sidebar-mini">
+<body class="dark-mode hold-transition sidebar-mini sidebar-collapse">
     <!-- Site wrapper -->
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -66,6 +66,7 @@
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
 
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{ asset('plugins/select2/js/select2.min.js')}}"></script>
     @yield('js')

@@ -13,24 +13,25 @@
                     </ol>
                 </div>
             </div>
+            <hr class="mt-2 mb-3"/>
         </div>
     </div>
     <div class="content">
         <div class="container-fluid">
+
             <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear ticket</a>
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="tickets" class="table table-bordered table-striped table-dark">
+                            <table id="tickets" class="table table-bordered table-striped table-dark responsive">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
                                         <th>Asunto</th>
                                         <th>Prioridad</th>
                                         <th>Usuario</th>
-                                        <th>Departamento</th>
+                                        <th>Desde</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -72,6 +73,7 @@
 
             // Funcion renderizar datos data table
             table = $('#tickets').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 columnDefs: [{
@@ -196,7 +198,7 @@
                 url = url.replace(':id', id);
 
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: url,
                     success: function(response) {
                         $('#user_id').val(response.id);

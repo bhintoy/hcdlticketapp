@@ -13,6 +13,7 @@
                     </ol>
                 </div>
             </div>
+            <hr class="mt-2 mb-3"/>
         </div>
     </div>
     <div class="content">
