@@ -66,7 +66,7 @@
                                     <span class="bg-blue">Comentarios</span>
                                 </div>
                                 <div>
-                                    <i class="fas fa-comments bg-blue"></i>
+                                    <i class="far fa-comments bg-blue"></i>
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i>
                                             {{ $ticket->created_at->format('d/m/Y | H:i') }}</span>
