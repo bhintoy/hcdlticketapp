@@ -192,29 +192,21 @@
                 resetForm();
             });
 
-            $('#tickets').on('click', '.btn-edit', function() {
+            $('#tickets').on('click', '.btn-show', function() {
                 let id = $(this).data('id');
                 let url = "{{ route('tickets.show', ':id') }}";
                 url = url.replace(':id', id);
 
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    success: function(response) {
-                        $('#user_id').val(response.id);
-                        $('#name').val(response.name);
-                        $('#rut').val(response.rut);
-                        $('#department_id').val(response.department_id);
+                console.log(url);
 
-                        $('#modalSave').modal('show');
-                    }
-                });
             });
 
             $('#tickets').on('click', '.btn-delete', function() {
                 let id = $(this).data('id');
                 let url = "{{ route('tickets.delete', ':id') }}";
                 url = url.replace(':id', id);
+
+
 
                 Swal.fire({
                     title: '¿Seguro quieres eliminar este registro?',

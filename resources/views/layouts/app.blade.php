@@ -20,7 +20,7 @@
     @yield('css')
 </head>
 
-<body class="dark-mode hold-transition sidebar-mini sidebar-collapse">
+<body class="dark-mode hold-transition sidebar-mini sidebar-collapse layout-navbar-fixed layout-fixed layout-footer-fixed">
     <!-- Site wrapper -->
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">

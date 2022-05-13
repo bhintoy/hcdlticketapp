@@ -21,7 +21,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ route('home')}}" class="nav-link active">
                         <i class="nav-icon fas fa-home"></i>
@@ -30,11 +30,11 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-open">
+                <li class="nav-item menu-close">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-desktop"></i>
+                        <i class="nav-icon fas fa-tools"></i>
                         <p>
-                            Informatica
+                            Mantenedores
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -42,7 +42,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-tachometer-alt nav-icon"></i>
-                                <p>Dashboard</p>
+                                <p>Noticias</p>
                             </a>
                         </li>
                     </ul>
@@ -50,7 +50,7 @@
                         <li class="nav-item">
                             <a href="{{ route('users.list')}}" class="nav-link">
                                 <i class="fa fa-users nav-icon"></i>
-                                <p>Gestion de usuarios</p>
+                                <p>Usuarios</p>
                             </a>
                         </li>
                     </ul>
@@ -66,7 +66,7 @@
                         <li class="nav-item">
                             <a href="{{ route('departments.list')}}" class="nav-link">
                                 <i class="fa fa-building nav-icon"></i>
-                                <p>Gestion de departamentos</p>
+                                <p>Departamentos</p>
                             </a>
                         </li>
                     </ul>

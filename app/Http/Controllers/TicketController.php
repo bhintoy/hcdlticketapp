@@ -76,7 +76,7 @@ class TicketController extends Controller
         return DataTables::of($tickets)
             ->addColumn('actions', function ($ticket){
                 return '
-                    <button type="button" class="btn btn-sm btn-primary btn-edit" data-id="'.$ticket->id.'"><i class="fa fa-eye"></i> Mostrar</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-show" data-id="'.$ticket->id.'"><i class="fa fa-eye"></i> Mostrar</button>
                     <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$ticket->id.'"><i class="fa fa-trash"></i> Eliminar</button>
                 ';
             })
