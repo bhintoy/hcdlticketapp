@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -24,7 +25,7 @@
 
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="users" class="table table-bordered table-striped table-dark">
+                            <table id="users" class="table table-bordered table-striped">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
@@ -45,7 +46,7 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/rutvalidator.js') }}"></script>
+
     <script>
         // Limpiar errores de validacion
         function cleanFormErrors() {
@@ -57,19 +58,22 @@
         function resetForm() {
             $('#formSave')[0].reset();
             $("#user_id").val('');
+            $('#department_id').val('');
+            $('#department_id').trigger('change');
         }
 
         var table;
 
         $(function() {
             // select2
-            $('.select2Custom').select2({
-                placeholder: "Seleccione una opcion",
-                allowClear: true
+            $('#department_id').select2({
+                theme: 'bootstrap4'
             });
 
             // rut formateo
-            $('#rut').rut();
+            $('#rut').on('change', function(e){
+                $(this).val(format(e.target.value));
+            });
 
             // Funcion renderizar datos data table
             table = $('#users').DataTable({

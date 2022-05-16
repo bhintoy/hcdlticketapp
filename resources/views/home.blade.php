@@ -102,4 +102,5 @@
 
         </div>
     </div>
+    <a href="{{ route('tickets.show', 'id') }}">mostrar</a>
 @endsection

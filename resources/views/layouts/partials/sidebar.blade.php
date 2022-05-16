@@ -13,7 +13,7 @@
             <div class="image">
                 <img src="{{ asset('img/profileAvatar/male_avatar_1.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
+            <div class="info" style="color:#fff;">
                 <b class="d-block">{{ request()->user()->name}}</b>
                 <small class="d-block">{{ request()->user()->department->name}}</small>
             </div>

@@ -1,7 +1,7 @@
 <form id="formSave" action="{{ route('users.save')}}" method="post">
     <input type="hidden" name="user_id" id="user_id" value="">
     @csrf
-    <div class="modal fade text-left" id="modalSave" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade text-left" id="modalSave" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
