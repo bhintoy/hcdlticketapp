@@ -6,15 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCDLPortal | Inicio de sesion</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('css')
 </head>
 
 <body class="hold-transition login-page">
@@ -70,17 +63,12 @@
     </div>
     <!-- /.login-box -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <!-- Rut formatter-->
-    <script src="{{ asset('js/rutvalidator.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('js')
 
     <script>
-        $(function() {
-            $('#rut').rut();
+        $('#rut').on('change', function(e) {
+            $(this).val(format(e.target.value));
         });
     </script>
 

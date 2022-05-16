@@ -16,7 +16,10 @@ class CreateCommentariesTable extends Migration
         Schema::create('commentaries', function (Blueprint $table) {
             $table->id();
             $table->string('commentary');
-            $table->string('file');
+
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')->references('id')->on('tickets');

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\CommentaryController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +47,4 @@ Route::post('/tickets/save', [TicketController::class, 'save'])->name('tickets.s
 Route::post('/tickets/datatable', [TicketController::class, 'dataTable'])->name('tickets.datatable');
 Route::get('/tickets/show/{id}', [TicketController::class, 'show'])->name('tickets.show');
 Route::delete('/tickets/delete/{id}', [TicketController::class, 'destroy'])->name('tickets.delete');
+Route::post('/ticket/comment/save', [CommentaryController::class, 'store'])->name('tickets.store');

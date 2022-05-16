@@ -18,13 +18,12 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-
             <a class="btn btn-primary mb-3" href="#" data-toggle="modal" data-target="#modalSave">Crear ticket</a>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="tickets" class="table table-bordered table-striped table-dark responsive">
+                            <table id="tickets" class="table table-bordered table-striped responsive">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
@@ -43,6 +42,7 @@
             </div>
         </div>
     </div>
+
     @include('tickets.modal')
 @endsection
 

@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('home')}}" class="brand-link">
-        <img src="{{ asset('img/hcdllogo.png')}}" alt="HCDL Logo" class="brand-image img-circle elevation-3"
+        <img src="{{ asset('images/hcdllogo.png')}}" alt="HCDL Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light"><strong>HCDL</strong>Portal</span>
     </a>
@@ -11,7 +11,7 @@
         <!-- Sidebar user -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('img/profileAvatar/male_avatar_1.png')}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('images/profileAvatar/male_avatar_1.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info" style="color:#fff;">
                 <b class="d-block">{{ request()->user()->name}}</b>

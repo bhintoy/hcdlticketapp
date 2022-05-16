@@ -14,7 +14,7 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('img/logohcdl.png') }}" alt="AdminLTELogo" height="120"
+            <img class="animation__wobble" src="{{ asset('images/logohcdl.png') }}" alt="AdminLTELogo" height="120"
                 width="300">
         </div>
         <!-- Navbar -->

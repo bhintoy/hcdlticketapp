@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+    public function commentaries()
+    {
+        return $this->hasMany(Commentary::class);
+    }
+
     /**
      * The attributes that should be cast.
      *

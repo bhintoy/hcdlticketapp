@@ -27,7 +27,7 @@ class TicketController extends Controller
             'subject' => 'required',
             'description' => 'required',
             'priority' => 'required',
-            'department_id' => 'required'
+            'department_id' => 'required',
         ]);
 
         $idUser = Auth::id();
@@ -52,8 +52,9 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         $statuses = Status::select('id', 'name')->get();
+        $commentaries = Commentary::select('commentary', 'id', 'commentaries.ticket_id')->get();
 
-        return view('tickets.overseers.viewTicket', compact('ticket', 'statuses'));
+        return view('tickets.overseers.viewTicket', compact('ticket', 'statuses', 'commentaries'));
     }
 
     public function destroy($id)
@@ -76,7 +77,7 @@ class TicketController extends Controller
         return DataTables::of($tickets)
             ->addColumn('actions', function ($ticket){
                 return '
-                    <button type="button" class="btn btn-sm btn-primary btn-show" data-id="'.$ticket->id.'"><i class="fa fa-eye"></i> Mostrar</button>
+                    <a class="btn btn-primary" href="'.route('tickets.show', $ticket->id).'"><i class="fa fa-eye"></i> Mostrar</a>
                     <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="'.$ticket->id.'"><i class="fa fa-trash"></i> Eliminar</button>
                 ';
             })
@@ -84,10 +85,5 @@ class TicketController extends Controller
                 'actions'
             ])
             ->toJson();
-    }
-
-    public function newComment(Request $request)
-    {
-
     }
 }

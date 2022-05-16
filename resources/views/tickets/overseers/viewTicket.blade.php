@@ -67,26 +67,40 @@
                                     <div class="time-label">
                                         <span class="bg-blue">Comentarios</span>
                                     </div>
-                                    <div>
-                                        <i class="far fa-comments bg-blue"></i>
-                                        <div class="timeline-item">
-                                            <span class="time"><i class="fas fa-clock"></i>
-                                                {{ $ticket->created_at->format('d/m/Y | H:i') }}</span>
-                                            <h3 class="timeline-header">
-                                                <strong>{{ $ticket->user->name }}</strong>
-                                                |
-                                                {{ $ticket->user->department->name }}
-                                            </h3>
-                                            <div class="timeline-body">
-                                                {{ $ticket->description }}
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a class="btn btn-primary btn-sm">Responder</a>
-                                                <a class="btn btn-danger btn-sm">Delete</a>
+                                    @foreach ($commentaries as $commentary)
+                                        <div>
+                                            <i class="far fa-comments bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fas fa-clock"></i>
+                                                    {{ $commentary->created_at->format() }}</span>
+                                                <h3 class="timeline-header">
+                                                    <strong>{{ $ticket->user->name }}</strong>
+                                                    |
+                                                    {{ $ticket->user->department->name }}
+                                                </h3>
+                                                <div class="timeline-body">
+                                                    {{ $commentary->commentary }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
+                                <form method="POST" action="{{ route('tickets.store') }}">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="commentary">Añadir nuevo comentario</label>
+                                            <textarea class="form-control" rows="3" placeholder="Describe tu problema" id="commentary"
+                                                name="commentary"></textarea>
+                                            </div>
+                                            <br>
+                                            <button class="btn btn-warning float-right" type="submit">Añadir
+                                                comentario</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
